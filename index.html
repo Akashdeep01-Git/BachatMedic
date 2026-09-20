@@ -9,89 +9,399 @@
     <!-- Place your mainstream push script tracking tags from HilltopAds here -->
 
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #f7fafc; color: #2d3748; min-height: 100vh; padding-bottom: 60px; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        /* Language Selection Initial Splash Modal overlay */
-        .lang-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 32, 44, 0.85); display: flex; align-items: center; justify-content: center; z-index: 9999; }
-        .lang-card { background: white; padding: 40px 30px; border-radius: 16px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .lang-card h2 { font-size: 24px; color: #1a202c; margin-bottom: 10px; }
-        .lang-card p { font-size: 14px; color: #718096; margin-bottom: 25px; }
-        .lang-btn-group { display: flex; gap: 15px; justify-content: center; }
-        .lang-select-btn { background: #2ecc71; color: white; border: none; padding: 14px 28px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: background 0.2s; min-width: 140px; }
-        .lang-select-btn:hover { background: #27ae60; }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
 
-        /* Navigation Header Master Layout */
-        .navbar { background: white; width: 100%; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .brand-title { color: #2ecc71; font-weight: 800; font-size: 22px; cursor: pointer; }
-        .nav-actions { display: flex; gap: 12px; align-items: center; }
-        .lang-toggle-badge { background: #edf2f7; color: #4a5568; border: 1px solid #cbd5e0; padding: 6px 12px; font-size: 12px; border-radius: 15px; font-weight: bold; cursor: pointer; }
+        button,
+        input {
+            font-family: inherit;
+        }
 
-        /* Main Dashboard Frame Container */
-        .dashboard-container { max-width: 700px; width: 95%; margin: 40px auto; padding: 0 10px; }
-        .search-section { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; margin-bottom: 25px; position: relative; }
-        .search-section h3 { font-size: 20px; margin-bottom: 8px; color: #1a202c; }
-        .search-section p { font-size: 13px; color: #718096; margin-bottom: 20px; }
+        /* Language selection splash modal overlay */
+        .lang-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 32, 44, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
 
-        /* Auto-suggest Search Component Input & Dropdown Layouts */
-        .search-box-container { position: relative; width: 100%; text-align: left; }
-        .search-input { width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 16px; outline: none; transition: border-color 0.2s; color: #2d3748; }
-        .search-input:focus { border-color: #2ecc71; }
+        .lang-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
 
-        .suggestion-dropdown { position: absolute; top: calc(100% + 4px); left: 0; width: 100%; background: white; border: 1px solid #cbd5e0; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); max-height: 250px; overflow-y: auto; z-index: 1000; display: none; }
-        .suggest-item { padding: 14px 16px; font-size: 15px; color: #2d3748; cursor: pointer; border-bottom: 1px solid #edf2f7; display: flex; justify-content: space-between; align-items: center; }
-        .suggest-item:last-child { border-bottom: none; }
-        .suggest-item:hover { background: #f0fff4; color: #27ae60; }
-        .suggest-badge { background: #e6fffa; color: #319795; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .lang-card h2 {
+            font-size: 24px;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
 
-        /* Output View Card Cards */
-        .results-wrapper { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .data-card { background: white; border-radius: 12px; padding: 20px; border-left: 6px solid #2ecc71; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .data-card-title { font-weight: 800; color: #1a202c; font-size: 18px; margin-bottom: 12px; text-transform: uppercase; border-bottom: 1px solid #edf2f7; padding-bottom: 6px; }
-        .data-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; color: #4a5568; }
-        .data-label { color: #718096; }
-        .data-value { font-weight: 600; color: #2d3748; text-align: right; max-width: 70%; }
-        .price-text { color: #2ecc71; font-weight: 800; font-size: 18px; }
+        .lang-card p {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 25px;
+        }
 
-        /* Future Feature Roadmaps Panel Preview Cards */
-        .roadmap-panel { background: #ebf8ff; border: 1px solid #bee3f8; border-radius: 12px; padding: 15px 20px; margin-top: 30px; text-align: left; }
-        .roadmap-title { font-weight: bold; color: #2b6cb0; font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-        .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 5px; }
-        .roadmap-tag { background: white; border: 1px solid #cbd5e0; padding: 8px; border-radius: 6px; font-size: 11px; text-align: center; color: #4a5568; font-weight: 600; }
+        .lang-btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
 
-        /* HilltopAds Banner Container Placement Block */
-        .ad-space-container { width: 100%; background: #edf2f7; border: 1px dashed #cbd5e0; min-height: 90px; margin-top: 25px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #718096; font-weight: bold; text-transform: uppercase; }
+        .lang-select-btn {
+            background: #2ecc71;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            min-width: 140px;
+        }
 
-        /* Footer Layer */
-        .app-footer { margin-top: 50px; text-align: center; font-size: 13px; color: #718096; border-top: 1px solid #e2e8f0; padding-top: 15px; }
-        .linkedin-link { color: #0077b5; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 4px; }
-        .linkedin-link:hover { text-decoration: underline; }
+        .lang-select-btn:hover {
+            background: #27ae60;
+        }
+
+        .lang-select-btn.secondary {
+            background: #3182ce;
+        }
+
+        .lang-select-btn.secondary:hover {
+            background: #2b6cb0;
+        }
+
+        /* Navigation header */
+        .navbar {
+            background: #ffffff;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .brand-title {
+            color: #2ecc71;
+            font-weight: 800;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .lang-toggle-badge {
+            background: #edf2f7;
+            color: #4a5568;
+            border: 1px solid #cbd5e0;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Main dashboard frame */
+        .dashboard-container {
+            max-width: 700px;
+            width: 95%;
+            margin: 40px auto;
+            padding: 0 10px;
+        }
+
+        .search-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .search-section h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #1a202c;
+        }
+
+        .search-section p {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        /* Auto-suggest input and dropdown */
+        .search-box-container {
+            position: relative;
+            width: 100%;
+            text-align: left;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+            color: #2d3748;
+        }
+
+        .search-input:focus {
+            border-color: #2ecc71;
+        }
+
+        .suggestion-dropdown {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #cbd5e0;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggest-item {
+            padding: 14px 16px;
+            font-size: 15px;
+            color: #2d3748;
+            cursor: pointer;
+            border-bottom: 1px solid #edf2f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .suggest-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggest-item:hover {
+            background: #f0fff4;
+            color: #27ae60;
+        }
+
+        .suggest-badge {
+            background: #e6fffa;
+            color: #319795;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Output result cards */
+        .results-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .data-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 6px solid #2ecc71;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .data-card-title {
+            font-weight: 800;
+            color: #1a202c;
+            font-size: 18px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 6px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #4a5568;
+        }
+
+        .data-row.total {
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .data-label {
+            color: #718096;
+        }
+
+        .data-row.total .data-label {
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .data-value {
+            font-weight: 600;
+            color: #2d3748;
+            text-align: right;
+            max-width: 70%;
+        }
+
+        .data-value.highlight {
+            font-weight: 700;
+        }
+
+        .price-text {
+            color: #2ecc71;
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        /* Future roadmap preview panel */
+        .roadmap-panel {
+            background: #ebf8ff;
+            border: 1px solid #bee3f8;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .roadmap-title {
+            font-weight: bold;
+            color: #2b6cb0;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .roadmap-tag {
+            background: #ffffff;
+            border: 1px solid #cbd5e0;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            text-align: center;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        /* HilltopAds banner placement block */
+        .ad-space-container {
+            width: 100%;
+            background: #edf2f7;
+            border: 1px dashed #cbd5e0;
+            min-height: 90px;
+            margin-top: 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #718096;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        .app-footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 13px;
+            color: #718096;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+
+        .footer-links {
+            margin-top: 5px;
+        }
+
+        .linkedin-link {
+            color: #0077b5;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .linkedin-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. Bilingual Gateway Switcher Modal Screen -->
+    <!-- 1. Bilingual gateway switcher modal -->
     <div id="languageModal" class="lang-modal">
         <div class="lang-card">
             <h2>🙏 Welcome to BachatMedic</h2>
             <p>कृपया अपनी पसंदीदा भाषा का चयन करें / Please choose your preferred search language to continue:</p>
             <div class="lang-btn-group">
-                <button class="lang-select-btn" onclick="setAppLanguage('en')">English</button>
-                <button class="lang-select-btn" onclick="setAppLanguage('hi')" style="background:#3182ce;">हिंदी (Hindi)</button>
+                <button type="button" class="lang-select-btn" onclick="setAppLanguage('en')">English</button>
+                <button type="button" class="lang-select-btn secondary" onclick="setAppLanguage('hi')">हिंदी (Hindi)</button>
             </div>
         </div>
     </div>
 
-    <!-- 2. Master Dashboard Header Area -->
-    <div class="navbar">
+    <!-- 2. Master dashboard header -->
+    <header class="navbar">
         <div class="brand-title" onclick="window.location.reload()">🟢 BachatMedic</div>
         <div class="nav-actions">
             <span id="activeLangBadge" class="lang-toggle-badge" onclick="showLanguageModal()">Language: English</span>
         </div>
-    </div>
+    </header>
 
-    <!-- 3. Dashboard Body Elements -->
-    <div class="dashboard-container">
+    <!-- 3. Dashboard body -->
+    <main class="dashboard-container">
 
         <div class="search-section">
             <h3 id="uiSearchHeading">Find Jan Aushadhi Medicines</h3>
@@ -100,21 +410,21 @@
             <div class="search-box-container">
                 <input type="text" id="dashboardSearchInput" class="search-input" placeholder="Type medicine name (e.g., Paracetamol, Amoxycillin)..." oninput="executeLiveAutoSuggest(this.value)">
 
-                <!-- Dynamic auto-suggest layout dropdown results card panel list -->
+                <!-- Dynamic auto-suggest dropdown results -->
                 <div id="dropdownSuggestions" class="suggestion-dropdown"></div>
             </div>
         </div>
 
-        <!-- Active Search Result Output Rendering Zone -->
+        <!-- Active search result output zone -->
         <div id="dashboardResultsWrapper" class="results-wrapper"></div>
 
         <!-- ⚠️ HILLTOPADS BANNER PLACEHOLDER BOX UNIT -->
         <div class="ad-space-container">
-            <!-- Paste the 300x250 or 728x90 banner tags generated by HilltopAds dashboard inside here -->
+            <!-- Paste the 300x250 or 728x90 banner tags generated by the HilltopAds dashboard inside here -->
             <span>HilltopAds Premium Monetization Zone</span>
         </div>
 
-        <!-- 4. Future Roadmap Feature Preview Module Modules Layer -->
+        <!-- 4. Future roadmap feature preview -->
         <div class="roadmap-panel">
             <div class="roadmap-title">🚀 Next Deployment Milestones (Future Product Blueprint)</div>
             <div class="roadmap-grid">
@@ -125,25 +435,26 @@
             </div>
         </div>
 
-        <!-- 5. Corporate Developer Footnotes Footer -->
-        <div class="app-footer">
+        <!-- 5. Developer footer -->
+        <footer class="app-footer">
             <p id="uiFooterCredit">Developed by <strong>Akashdeep</strong></p>
-            <p style="margin-top:5px;">
-                <a href="https://linkedin.com" target="_blank" class="linkedin-link">
+            <p class="footer-links">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="linkedin-link">
                     💼 Connect with Developer on LinkedIn ➔
                 </a>
             </p>
-        </div>
-    </div>
+        </footer>
+
+    </main>
 
     <script>
         // ⚙️ INJECT YOUR SECURE SUPABASE API DATA ENDPOINT DETAILS RIGHT HERE
-        const SUPABASE_URL = "https://etexyntlypgjwpmcfsfh.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0ZXh5bnRseXBnandwbWNmc2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MjA3MTcsImV4cCI6MjEwNTQ5NjcxN30.2mTYDX8oO0ZZtxZqkIY21iNXPqkXi9zP7h9DVnqJPzo";
+        const SUPABASE_URL = "https://supabase.co";
+        const SUPABASE_ANON_KEY = "your-anon-public-api-key";
 
         let selectedLanguage = "en";
 
-        // Bilingual Data Dictionary Map Mapping Object
+        // Bilingual data dictionary map
         const localizationDictionary = {
             en: {
                 heading: "Find Jan Aushadhi Medicines",
@@ -160,6 +471,10 @@
             hi: {
                 heading: "जन औषधि दवाएं खोजें",
                 subheading: "नीचे अपनी प्रिस्क्रिप्शन केमिकल या साल्ट कॉम्बिनेशन फॉर्मूला टाइप करें",
+                placeholder: "दवा का नाम टाइप करें (जैसे, Paracetamol, Amoxycillin)...",
+                badge: "भाषा: हिंदी",
+                credit: "<strong>Akashdeep</strong> द्वारा विकसित",
+                noMatch: "❌ कोई जेनेरिक विकल्प अभी दर्ज नहीं है",
                 noMatchSub: "निर्दिष्ट दवा वर्तमान में हमारे जन औषधि केंद्रीय इन्वेंट्री मास्टर शीट रिकॉर्ड में उपलब्ध नहीं है।",
                 mrp: "सरकारी केंद्र मूल्य",
                 unit: "पैकेजिंग और साइज",
@@ -188,7 +503,7 @@
             document.getElementById("dashboardSearchInput").value = "";
         }
 
-        // Smart real-time auto-suggest engine connector logic
+        // Smart real-time auto-suggest engine
         async function executeLiveAutoSuggest(rawVal) {
             const dropdown = document.getElementById("dropdownSuggestions");
             const term = rawVal.trim().toLowerCase();
@@ -198,7 +513,7 @@
                 return;
             }
 
-            // Target Supabase REST schema layer directly to execute instant, partial matches on generic name columns
+            // Target the Supabase REST schema layer directly for instant partial matches on generic name columns
             const apiQueryTarget = `${SUPABASE_URL}/rest/v1/bachat_medic_inventory?generic_name=ilike.%25${encodeURIComponent(term)}%25&select=*`;
 
             try {
@@ -210,29 +525,30 @@
                         "Content-Type": "application/json"
                     }
                 });
-                // Further processing logic can be appended here
+
                 const matchingRecords = await response.json();
 
                 if (response.ok && matchingRecords.length > 0) {
                     dropdown.innerHTML = "";
-                    // Limit the drop-down elements lists view array to a maximum height density of 5 rows
-                    const topSuggestions = matchingRecords.slice(0, 5);
 
-                    topSuggestions.forEach(item => {
+                    // Limit the dropdown list to a maximum of 5 rows
+                    matchingRecords.slice(0, 5).forEach(item => {
                         const row = document.createElement("div");
                         row.className = "suggest-item";
                         row.innerHTML = `<span>💊 ${item.generic_name}</span> <span class="suggest-badge">₹ ${parseFloat(item.mrp_in_rs).toFixed(2)}</span>`;
 
-                        // When clicked, select that row entry card to print output details
+                        // When clicked, select that row entry to print the output details
                         row.onclick = () => selectMedicineFromDropdown(item);
                         dropdown.appendChild(row);
                     });
+
                     dropdown.style.display = "block";
                 } else {
                     dropdown.style.display = "none";
                 }
             } catch (err) {
                 console.error("Fuzzy live indexing pipeline connection failed:", err);
+                dropdown.style.display = "none";
             }
         }
 
@@ -252,22 +568,22 @@
                     </div>
                     <div class="data-row">
                         <span class="data-label">Generic Chemical Formula:</span>
-                        <span class="data-value" style="font-weight:700;">${item.generic_name}</span>
+                        <span class="data-value highlight">${item.generic_name}</span>
                     </div>
                     <div class="data-row">
                         <span class="data-label">${langDict.unit}:</span>
                         <span class="data-value">${item.unit_size}</span>
                     </div>
-                    <div class="data-row" style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed #e2e8f0;">
-                        <span class="data-label" style="font-weight:bold; color:#2d3748;">${langDict.mrp}:</span>
+                    <div class="data-row total">
+                        <span class="data-label">${langDict.mrp}:</span>
                         <span class="data-value price-text">₹ ${parseFloat(item.mrp_in_rs).toFixed(2)}</span>
                     </div>
                 </div>
             `;
         }
 
-        // Automatically dismiss suggestion dropdown boxes if user clicks outside the modal card bounds
-        document.addEventListener("click", function(e) {
+        // Automatically dismiss the suggestion dropdown if the user clicks outside the search input
+        document.addEventListener("click", function (e) {
             if (e.target.id !== "dashboardSearchInput") {
                 document.getElementById("dropdownSuggestions").style.display = "none";
             }
