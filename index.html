@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="a68e3f8007bcc22ba6e38ae0a64c0c3358a9d456" content="a68e3f8007bcc22ba6e38ae0a64c0c3358a9d456" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BachatMedic - Jan Aushadhi Hub</title>
+    
+    <!-- 💰 HILLTOPADS REVENUE BOOSTER TAG -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+    <!-- 🔑 HILLTOPADS VERIFICATION TAG -->
     <meta name="a68e3f8007bcc22ba6e38ae0a64c0c3358a9d456" content="a68e3f8007bcc22ba6e38ae0a64c0c3358a9d456" />
+
 </head>
 <body>
 
@@ -35,7 +40,6 @@
         <h3 id="uiSearchHeading">Find Jan Aushadhi Medicines</h3>
         <p id="uiSearchSubheading">Type your prescription chemical or salt combination formula below</p>
         <div class="search-box-container">
-            <!-- autocomplete="off" stops browser text history from blocking medicine names -->
             <input type="text" id="dashboardSearchInput" class="search-input" autocomplete="off" placeholder="Type medicine name (e.g., Paracetamol, Amoxycillin)..." oninput="executeLiveAutoSuggest(this.value)">
             <div id="dropdownSuggestions" class="suggestion-dropdown"></div>
         </div>
@@ -119,11 +123,10 @@
     .linkedin-link { color: #0077b5; text-decoration: none; font-weight: bold; }
 </style>
 
-
 <script>
     // ⚙️ PASTE YOUR SECURE SUPABASE API URL AND ANON KEY HERE
-    const SUPABASE_URL = "https://etexyntlypgjwpmcfsfh.supabase.co"; // Ensure NO trailing slash / at the end
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0ZXh5bnRseXBnandwbWNmc2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MjA3MTcsImV4cCI6MjEwNTQ5NjcxN30.2mTYDX8oO0ZZtxZqkIY21iNXPqkXi9zP7h9DVnqJPzo"; 
+    const SUPABASE_URL = "https://supabase.co"; 
+    const SUPABASE_ANON_KEY = "your-anon-public-api-key"; 
 
     let selectedLanguage = "en";
 
@@ -169,15 +172,10 @@
         document.getElementById("dashboardResultsWrapper").innerHTML = "";
         document.getElementById("dashboardSearchInput").value = "";
     }
-     // Real-time Database Search & Custom Suggestion Dropdown Loader
     async function executeLiveAutoSuggest(rawVal) {
         const dropdown = document.getElementById("dropdownSuggestions");
         const term = rawVal.trim().toLowerCase();
-
-        if (term.length < 1) {
-            dropdown.style.display = "none";
-            return;
-        }
+        if (term.length < 1) { dropdown.style.display = "none"; return; }
 
         // Targets the case-sensitive column headers created by the CSV import via the PostgREST API
         const apiQueryTarget = `${SUPABASE_URL}/rest/v1/bachat_medic_inventory?%22Generic%20Name%22=ilike.%25${encodeURIComponent(term)}%25&select=*`;
@@ -191,57 +189,40 @@
                     "Content-Type": "application/json"
                 }
             });
-
             const matchingRecords = await response.json();
-
             if (response.ok && matchingRecords.length > 0) {
                 dropdown.innerHTML = "";
-                // Limits suggestion results to top 5 items for display speed
                 const topSuggestions = matchingRecords.slice(0, 5);
-                
                 topSuggestions.forEach(item => {
                     const row = document.createElement("div");
                     row.className = "suggest-item";
-                    
                     const itemMedName = item["Generic Name"] || item.generic_name || "-";
-                    const itemPrice = item["MRP(in Rs.)"] || item.mrp_in_rs || item.mrp || 0;
-
-                    row.innerHTML = `
-                        <span>💊 ${itemMedName}</span>
-                        <span class="suggest-badge">₹ ${parseFloat(itemPrice).toFixed(2)}</span>
-                    `;
+                    const itemPrice = item["MRP(in Rs.)"] || item.mrp_in_rs || 0;
+                    row.innerHTML = `<span>💊 ${itemMedName}</span><span class="suggest-badge">₹ ${parseFloat(itemPrice).toFixed(2)}</span>`;
                     row.onclick = () => selectMedicineFromDropdown(item);
                     dropdown.appendChild(row);
                 });
                 dropdown.style.display = "block";
-            } else {
-                dropdown.style.display = "none";
-            }
-        } catch (err) {
-            console.error("Database connection failure logged:", err);
-        }
+            } else { dropdown.style.display = "none"; }
+        } catch (err) { console.error("API error:", err); }
     }
 
-    // Renders the side-by-side comparison onto the result dashboard view card
     function selectMedicineFromDropdown(item) {
         document.getElementById("dropdownSuggestions").style.display = "none";
-        
         const currentGenericName = item["Generic Name"] || item.generic_name || "-";
         document.getElementById("dashboardSearchInput").value = currentGenericName;
-        
         const resultsWrapper = document.getElementById("dashboardResultsWrapper");
         const langDict = localizationDictionary[selectedLanguage];
-        
-        // 📊 Math Processing Layer
+
+        // 📊 Price Savings Math Processing
         const genPrice = parseFloat(item["MRP(in Rs.)"] || item.mrp_in_rs || 0);
-        const privatePrice = parseFloat((genPrice * 3.5).toFixed(2)); // Standard 3.5x Indian pharma private brand markup matrix
+        const privatePrice = parseFloat((genPrice * 3.5).toFixed(2)); 
         const priceDifference = parseFloat((privatePrice - genPrice).toFixed(2));
         const savingsPercentage = Math.round((priceDifference / privatePrice) * 100);
 
-        const finalUnit = item["Unit Size"] || item.unit_size || item.unit || "N/A";
-        const finalCode = item["Drug Code"] || item.drug_code || item.code || "N/A";
+        const finalUnit = item["Unit Size"] || item.unit_size || "N/A";
+        const finalCode = item["Drug Code"] || item.drug_code || "N/A";
 
-        // Dynamic labels based on Hindi / English state
         const labels = {
             en: { title: "✨ Price Savings Comparison", private: "Avg Private Brand Price", generic: "Jan Aushadhi Kendra Price", diff: "Total Cash Saved", percent: "Saves you approx" },
             hi: { title: "✨ मूल्य बचत तुलना", private: "औसत प्राइवेट ब्रांड मूल्य", generic: "जन औषधि केंद्र मूल्य", diff: "कुल नकद बचत", percent: "आपकी बचत लगभग" }
@@ -251,38 +232,29 @@
         resultsWrapper.innerHTML = `
             <div class="data-card" style="border-left-color: #38a169;">
                 <div class="data-card-title" style="color: #27ae60; font-weight:800;">${currentText.title}</div>
-                
                 <div class="data-row"><span class="data-label">${langDict.code}:</span><span class="data-value">#${finalCode}</span></div>
                 <div class="data-row"><span class="data-label">Generic Formula:</span><span class="data-value" style="font-weight:700;">${currentGenericName}</span></div>
                 <div class="data-row"><span class="data-label">${langDict.unit}:</span><span class="data-value">${finalUnit}</span></div>
-                
-                <!-- 💰 SIDE-BY-SIDE PRICE COMPARISON MATRIX -->
                 <div class="data-row" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #edf2f7;">
                     <span class="data-label" style="color: #e53e3e; font-weight: 600;">❌ ${currentText.private}:</span>
                     <span class="data-value" style="color: #e53e3e; font-weight: bold; text-decoration: line-through;">₹ ${privatePrice.toFixed(2)}</span>
                 </div>
-                
                 <div class="data-row">
                     <span class="data-label" style="color: #38a169; font-weight: 600;">✔️ ${currentText.generic}:</span>
                     <span class="data-value" style="color: #38a169; font-weight: 800; font-size: 18px;">₹ ${genPrice.toFixed(2)}</span>
                 </div>
-                
                 <div class="data-row" style="margin-top: 8px; padding: 10px; background: #f0fff4; border-radius: 6px; border: 1px dashed #c6f6d5;">
                     <span class="data-label" style="color: #22543d; font-weight: bold;">💥 ${currentText.diff}:</span>
                     <span class="data-value" style="color: #22543d; font-weight: 800; font-size: 18px;">₹ ${priceDifference.toFixed(2)}</span>
                 </div>
-
                 <div style="margin-top: 12px; font-size: 13px; color: #27ae60; font-weight: bold; background: #e8f8f0; display: inline-block; padding: 4px 10px; border-radius: 4px;">
                     🎉 ${currentText.percent} ${savingsPercentage}% !
                 </div>
-            </div>
-        `;
+            </div>`;
     }
-
-    // Automatically close suggestion dropdown panel if user clicks outside the entry box bounds
     document.addEventListener("click", function(e) {
-        if (e.target.id !== "dashboardSearchInput") {
-            document.getElementById("dropdownSuggestions").style.display = "none";
-        }
+        if (e.target.id !== "dashboardSearchInput") { document.getElementById("dropdownSuggestions").style.display = "none"; }
     });
 </script>
+</body>
+</html>
