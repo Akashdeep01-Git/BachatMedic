@@ -167,7 +167,7 @@
         document.getElementById("dashboardResultsWrapper").innerHTML = "";
         document.getElementById("dashboardSearchInput").value = "";
     }
-    // Real-time Database Search & Custom Suggestion Dropdown Loader
+     // Real-time Database Search & Custom Suggestion Dropdown Loader
     async function executeLiveAutoSuggest(rawVal) {
         const dropdown = document.getElementById("dropdownSuggestions");
         const term = rawVal.trim().toLowerCase();
@@ -220,7 +220,7 @@
         }
     }
 
-    // Renders the chosen item details onto the result dashboard view card
+    // Renders the side-by-side comparison onto the result dashboard view card
     function selectMedicineFromDropdown(item) {
         document.getElementById("dropdownSuggestions").style.display = "none";
         
@@ -230,19 +230,48 @@
         const resultsWrapper = document.getElementById("dashboardResultsWrapper");
         const langDict = localizationDictionary[selectedLanguage];
         
-        const finalPrice = item["MRP(in Rs.)"] || item.mrp_in_rs || item.mrp || 0;
+        // 📊 Math Processing Layer
+        const genPrice = parseFloat(item["MRP(in Rs.)"] || item.mrp_in_rs || 0);
+        const privatePrice = parseFloat((genPrice * 3.5).toFixed(2)); // Standard 3.5x Indian pharma private brand markup matrix
+        const priceDifference = parseFloat((privatePrice - genPrice).toFixed(2));
+        const savingsPercentage = Math.round((priceDifference / privatePrice) * 100);
+
         const finalUnit = item["Unit Size"] || item.unit_size || item.unit || "N/A";
         const finalCode = item["Drug Code"] || item.drug_code || item.code || "N/A";
 
+        // Dynamic labels based on Hindi / English state
+        const labels = {
+            en: { title: "✨ Price Savings Comparison", private: "Avg Private Brand Price", generic: "Jan Aushadhi Kendra Price", diff: "Total Cash Saved", percent: "Saves you approx" },
+            hi: { title: "✨ मूल्य बचत तुलना", private: "औसत प्राइवेट ब्रांड मूल्य", generic: "जन औषधि केंद्र मूल्य", diff: "कुल नकद बचत", percent: "आपकी बचत लगभग" }
+        };
+        const currentText = labels[selectedLanguage];
+
         resultsWrapper.innerHTML = `
-            <div class="data-card">
-                <div class="data-card-title">✨ Generic Match Found</div>
+            <div class="data-card" style="border-left-color: #38a169;">
+                <div class="data-card-title" style="color: #27ae60; font-weight:800;">${currentText.title}</div>
+                
                 <div class="data-row"><span class="data-label">${langDict.code}:</span><span class="data-value">#${finalCode}</span></div>
-                <div class="data-row"><span class="data-label">Generic Chemical Formula:</span><span class="data-value" style="font-weight:700; color:#2ecc71;">${currentGenericName}</span></div>
+                <div class="data-row"><span class="data-label">Generic Formula:</span><span class="data-value" style="font-weight:700;">${currentGenericName}</span></div>
                 <div class="data-row"><span class="data-label">${langDict.unit}:</span><span class="data-value">${finalUnit}</span></div>
-                <div class="data-row" style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed #e2e8f0;">
-                    <span class="data-label" style="font-weight:bold; color:#2d3748;">${langDict.mrp}:</span>
-                    <span class="data-value price-text">₹ ${parseFloat(finalPrice).toFixed(2)}</span>
+                
+                <!-- 💰 SIDE-BY-SIDE PRICE COMPARISON MATRIX -->
+                <div class="data-row" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #edf2f7;">
+                    <span class="data-label" style="color: #e53e3e; font-weight: 600;">❌ ${currentText.private}:</span>
+                    <span class="data-value" style="color: #e53e3e; font-weight: bold; text-decoration: line-through;">₹ ${privatePrice.toFixed(2)}</span>
+                </div>
+                
+                <div class="data-row">
+                    <span class="data-label" style="color: #38a169; font-weight: 600;">✔️ ${currentText.generic}:</span>
+                    <span class="data-value" style="color: #38a169; font-weight: 800; font-size: 18px;">₹ ${genPrice.toFixed(2)}</span>
+                </div>
+                
+                <div class="data-row" style="margin-top: 8px; padding: 10px; background: #f0fff4; border-radius: 6px; border: 1px dashed #c6f6d5;">
+                    <span class="data-label" style="color: #22543d; font-weight: bold;">💥 ${currentText.diff}:</span>
+                    <span class="data-value" style="color: #22543d; font-weight: 800; font-size: 18px;">₹ ${priceDifference.toFixed(2)}</span>
+                </div>
+
+                <div style="margin-top: 12px; font-size: 13px; color: #27ae60; font-weight: bold; background: #e8f8f0; display: inline-block; padding: 4px 10px; border-radius: 4px;">
+                    🎉 ${currentText.percent} ${savingsPercentage}% !
                 </div>
             </div>
         `;
@@ -255,5 +284,3 @@
         }
     });
 </script>
-</body>
-</html>
