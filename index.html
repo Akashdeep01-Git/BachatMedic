@@ -5,32 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BachatMedic - Jan Aushadhi Hub</title>
 
-    <!-- ⚠️ HILLTOPADS HEAD PLACEMENT CODE SLOT -->
-    <!-- Place your mainstream push script tracking tags from HilltopAds here -->
-
     <style>
-        *,
-        *::before,
-        *::after {
+        * {
             box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: #f7fafc;
             color: #2d3748;
             min-height: 100vh;
             padding-bottom: 60px;
         }
 
-        button,
-        input {
-            font-family: inherit;
-        }
-
-        /* Language selection splash modal overlay */
+        /* LANGUAGE MODAL */
         .lang-modal {
             position: fixed;
             top: 0;
@@ -45,13 +35,13 @@
         }
 
         .lang-card {
-            background: #ffffff;
+            background: white;
             padding: 40px 30px;
             border-radius: 16px;
             text-align: center;
             max-width: 450px;
             width: 90%;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
         }
 
         .lang-card h2 {
@@ -70,11 +60,12 @@
             display: flex;
             gap: 15px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .lang-select-btn {
             background: #2ecc71;
-            color: #ffffff;
+            color: white;
             border: none;
             padding: 14px 28px;
             font-size: 16px;
@@ -89,24 +80,15 @@
             background: #27ae60;
         }
 
-        .lang-select-btn.secondary {
-            background: #3182ce;
-        }
-
-        .lang-select-btn.secondary:hover {
-            background: #2b6cb0;
-        }
-
-        /* Navigation header */
+        /* NAVBAR */
         .navbar {
-            background: #ffffff;
+            background: white;
             width: 100%;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .brand-title {
@@ -114,12 +96,6 @@
             font-weight: 800;
             font-size: 22px;
             cursor: pointer;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
         }
 
         .lang-toggle-badge {
@@ -133,7 +109,7 @@
             cursor: pointer;
         }
 
-        /* Main dashboard frame */
+        /* MAIN */
         .dashboard-container {
             max-width: 700px;
             width: 95%;
@@ -142,7 +118,7 @@
         }
 
         .search-section {
-            background: #ffffff;
+            background: white;
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -163,7 +139,7 @@
             margin-bottom: 20px;
         }
 
-        /* Auto-suggest input and dropdown */
+        /* SEARCH */
         .search-box-container {
             position: relative;
             width: 100%;
@@ -177,23 +153,22 @@
             border-radius: 10px;
             font-size: 16px;
             outline: none;
-            transition: border-color 0.2s;
-            color: #2d3748;
         }
 
         .search-input:focus {
             border-color: #2ecc71;
         }
 
+        /* SUGGESTIONS */
         .suggestion-dropdown {
             position: absolute;
             top: calc(100% + 4px);
             left: 0;
             width: 100%;
-            background: #ffffff;
+            background: white;
             border: 1px solid #cbd5e0;
             border-radius: 10px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             max-height: 250px;
             overflow-y: auto;
             z-index: 1000;
@@ -209,10 +184,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .suggest-item:last-child {
-            border-bottom: none;
+            gap: 12px;
         }
 
         .suggest-item:hover {
@@ -227,9 +199,10 @@
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
-        /* Output result cards */
+        /* RESULTS */
         .results-wrapper {
             display: flex;
             flex-direction: column;
@@ -238,7 +211,7 @@
         }
 
         .data-card {
-            background: #ffffff;
+            background: white;
             border-radius: 12px;
             padding: 20px;
             border-left: 6px solid #2ecc71;
@@ -258,24 +231,14 @@
         .data-row {
             display: flex;
             justify-content: space-between;
+            gap: 15px;
             font-size: 14px;
             margin-bottom: 6px;
             color: #4a5568;
         }
 
-        .data-row.total {
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px dashed #e2e8f0;
-        }
-
         .data-label {
             color: #718096;
-        }
-
-        .data-row.total .data-label {
-            font-weight: bold;
-            color: #2d3748;
         }
 
         .data-value {
@@ -285,17 +248,13 @@
             max-width: 70%;
         }
 
-        .data-value.highlight {
-            font-weight: 700;
-        }
-
         .price-text {
             color: #2ecc71;
             font-weight: 800;
             font-size: 18px;
         }
 
-        /* Future roadmap preview panel */
+        /* ROADMAP */
         .roadmap-panel {
             background: #ebf8ff;
             border: 1px solid #bee3f8;
@@ -310,9 +269,6 @@
             color: #2b6cb0;
             font-size: 14px;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .roadmap-grid {
@@ -323,7 +279,7 @@
         }
 
         .roadmap-tag {
-            background: #ffffff;
+            background: white;
             border: 1px solid #cbd5e0;
             padding: 8px;
             border-radius: 6px;
@@ -333,7 +289,7 @@
             font-weight: 600;
         }
 
-        /* HilltopAds banner placement block */
+        /* AD */
         .ad-space-container {
             width: 100%;
             background: #edf2f7;
@@ -348,9 +304,11 @@
             color: #718096;
             font-weight: bold;
             text-transform: uppercase;
+            text-align: center;
+            padding: 10px;
         }
 
-        /* Footer */
+        /* FOOTER */
         .app-footer {
             margin-top: 50px;
             text-align: center;
@@ -360,234 +318,970 @@
             padding-top: 15px;
         }
 
-        .footer-links {
-            margin-top: 5px;
-        }
-
         .linkedin-link {
             color: #0077b5;
             text-decoration: none;
             font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
         }
 
-        .linkedin-link:hover {
-            text-decoration: underline;
+        .status-message {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- 1. Bilingual gateway switcher modal -->
+    <!-- LANGUAGE MODAL -->
     <div id="languageModal" class="lang-modal">
         <div class="lang-card">
             <h2>🙏 Welcome to BachatMedic</h2>
-            <p>कृपया अपनी पसंदीदा भाषा का चयन करें / Please choose your preferred search language to continue:</p>
+
+            <p>
+                कृपया अपनी पसंदीदा भाषा का चयन करें /
+                Please choose your preferred search language to continue:
+            </p>
+
             <div class="lang-btn-group">
-                <button type="button" class="lang-select-btn" onclick="setAppLanguage('en')">English</button>
-                <button type="button" class="lang-select-btn secondary" onclick="setAppLanguage('hi')">हिंदी (Hindi)</button>
+                <button
+                    class="lang-select-btn"
+                    onclick="setAppLanguage('en')">
+                    English
+                </button>
+
+                <button
+                    class="lang-select-btn"
+                    onclick="setAppLanguage('hi')"
+                    style="background:#3182ce;">
+                    हिंदी (Hindi)
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- 2. Master dashboard header -->
-    <header class="navbar">
-        <div class="brand-title" onclick="window.location.reload()">🟢 BachatMedic</div>
-        <div class="nav-actions">
-            <span id="activeLangBadge" class="lang-toggle-badge" onclick="showLanguageModal()">Language: English</span>
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+        <div
+            class="brand-title"
+            onclick="window.location.reload()">
+            🟢 BachatMedic
         </div>
-    </header>
 
-    <!-- 3. Dashboard body -->
-    <main class="dashboard-container">
+        <div class="nav-actions">
+            <span
+                id="activeLangBadge"
+                class="lang-toggle-badge"
+                onclick="showLanguageModal()">
+                Language: English
+            </span>
+        </div>
 
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-container">
+
+        <!-- SEARCH SECTION -->
         <div class="search-section">
-            <h3 id="uiSearchHeading">Find Jan Aushadhi Medicines</h3>
-            <p id="uiSearchSubheading">Type your prescription chemical or salt combination formula below</p>
+
+            <h3 id="uiSearchHeading">
+                Find Jan Aushadhi Medicines
+            </h3>
+
+            <p id="uiSearchSubheading">
+                Type your prescription chemical or salt combination formula below
+            </p>
 
             <div class="search-box-container">
-                <input type="text" id="dashboardSearchInput" class="search-input" placeholder="Type medicine name (e.g., Paracetamol, Amoxycillin)..." oninput="executeLiveAutoSuggest(this.value)">
 
-                <!-- Dynamic auto-suggest dropdown results -->
-                <div id="dropdownSuggestions" class="suggestion-dropdown"></div>
+                <input
+                    type="text"
+                    id="dashboardSearchInput"
+                    class="search-input"
+                    placeholder="Type medicine name (e.g., Paracetamol, Amoxycillin)..."
+                    autocomplete="off"
+                    oninput="executeLiveAutoSuggest(this.value)"
+                >
+
+                <div
+                    id="dropdownSuggestions"
+                    class="suggestion-dropdown">
+                </div>
+
             </div>
+
         </div>
 
-        <!-- Active search result output zone -->
-        <div id="dashboardResultsWrapper" class="results-wrapper"></div>
+        <!-- RESULTS -->
+        <div
+            id="dashboardResultsWrapper"
+            class="results-wrapper">
+        </div>
 
-        <!-- ⚠️ HILLTOPADS BANNER PLACEHOLDER BOX UNIT -->
+        <!-- AD SPACE -->
         <div class="ad-space-container">
-            <!-- Paste the 300x250 or 728x90 banner tags generated by the HilltopAds dashboard inside here -->
-            <span>HilltopAds Premium Monetization Zone</span>
+            <span>
+                HilltopAds Premium Monetization Zone
+            </span>
         </div>
 
-        <!-- 4. Future roadmap feature preview -->
+        <!-- ROADMAP -->
         <div class="roadmap-panel">
-            <div class="roadmap-title">🚀 Next Deployment Milestones (Future Product Blueprint)</div>
-            <div class="roadmap-grid">
-                <div class="roadmap-tag">📍 Geofencing Store Finder</div>
-                <div class="roadmap-tag">📸 Photo Prescription Scan AI</div>
-                <div class="roadmap-tag">⚖️ Multi-Store Price Bidding</div>
-                <div class="roadmap-tag">🗣️ Regional Indian Languages</div>
+
+            <div class="roadmap-title">
+                🚀 Next Deployment Milestones (Future Product Blueprint)
             </div>
+
+            <div class="roadmap-grid">
+
+                <div class="roadmap-tag">
+                    📍 Geofencing Store Finder
+                </div>
+
+                <div class="roadmap-tag">
+                    📸 Photo Prescription Scan AI
+                </div>
+
+                <div class="roadmap-tag">
+                    ⚖️ Multi-Store Price Bidding
+                </div>
+
+                <div class="roadmap-tag">
+                    🗣️ Regional Indian Languages
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- 5. Developer footer -->
-        <footer class="app-footer">
-            <p id="uiFooterCredit">Developed by <strong>Akashdeep</strong></p>
-            <p class="footer-links">
-                <a href="www.linkedin.com/in/akash-deep-376b931a0" target="_blank" rel="noopener noreferrer" class="linkedin-link">
-                    💼 Connect with Developer on LinkedIn ➔
-                </a>
+        <!-- FOOTER -->
+        <div class="app-footer">
+
+            <p id="uiFooterCredit">
+                Developed by <strong>Akashdeep</strong>
             </p>
-        </footer>
 
-    </main>
+            <p style="margin-top:5px;">
 
+                <a
+                    href="www.linkedin.com/in/akash-deep-376b931a0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="linkedin-link">
+
+                    💼 Connect with Developer on LinkedIn ➔
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
     <script>
-        // ⚙️ INJECT YOUR SECURE SUPABASE API DATA ENDPOINT DETAILS RIGHT HERE
+
+        // =========================================================
+        // SUPABASE CONFIGURATION
+        // =========================================================
+
         const SUPABASE_URL = "https://etexyntlypgjwpmcfsfh.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0ZXh5bnRseXBnandwbWNmc2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MjA3MTcsImV4cCI6MjEwNTQ5NjcxN30.2mTYDX8oO0ZZtxZqkIY21iNXPqkXi9zP7h9DVnqJPzo";
+
+        const SUPABASE_ANON_KEY ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0ZXh5bnRseXBnandwbWNmc2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MjA3MTcsImV4cCI6MjEwNTQ5NjcxN30.2mTYDX8oO0ZZtxZqkIY21iNXPqkXi9zP7h9DVnqJPzo";
+
+
+        // =========================================================
+        // APP LANGUAGE
+        // =========================================================
 
         let selectedLanguage = "en";
 
-        // Bilingual data dictionary map
+
+        // =========================================================
+        // LOCALIZATION
+        // =========================================================
+
         const localizationDictionary = {
+
             en: {
-                heading: "Find Jan Aushadhi Medicines",
-                subheading: "Type your prescription chemical or salt combination formula below",
-                placeholder: "Type medicine name (e.g., Paracetamol, Amoxycillin)...",
-                badge: "Language: English",
-                credit: "Developed by <strong>Akashdeep</strong>",
-                noMatch: "❌ No Generic Store Alternative Logged Yet",
-                noMatchSub: "The specified formula string is currently missing from our Jan Aushadhi central inventory master sheet records.",
-                mrp: "Kendra Retail Price",
-                unit: "Packaging Metrics Sizing",
-                code: "Govt Drug Code Reference"
+
+                heading:
+                    "Find Jan Aushadhi Medicines",
+
+                subheading:
+                    "Type your prescription chemical or salt combination formula below",
+
+                placeholder:
+                    "Type medicine name (e.g., Paracetamol, Amoxycillin)...",
+
+                badge:
+                    "Language: English",
+
+                credit:
+                    "Developed by <strong>Akashdeep</strong>",
+
+                noMatch:
+                    "❌ No Generic Kendra Match Found",
+
+                mrp:
+                    "Kendra Retail Price",
+
+                unit:
+                    "Packaging & Size",
+
+                code:
+                    "Govt Drug Code Reference",
+
+                formula:
+                    "Generic Chemical Formula",
+
+                found:
+                    "✨ Generic Match Found",
+
+                searching:
+                    "Searching..."
+
             },
+
             hi: {
-                heading: "जन औषधि दवाएं खोजें",
-                subheading: "नीचे अपनी प्रिस्क्रिप्शन केमिकल या साल्ट कॉम्बिनेशन फॉर्मूला टाइप करें",
-                placeholder: "दवा का नाम टाइप करें (जैसे, Paracetamol, Amoxycillin)...",
-                badge: "भाषा: हिंदी",
-                credit: "<strong>Akashdeep</strong> द्वारा विकसित",
-                noMatch: "❌ कोई जेनेरिक विकल्प अभी दर्ज नहीं है",
-                noMatchSub: "निर्दिष्ट दवा वर्तमान में हमारे जन औषधि केंद्रीय इन्वेंट्री मास्टर शीट रिकॉर्ड में उपलब्ध नहीं है।",
-                mrp: "सरकारी केंद्र मूल्य",
-                unit: "पैकेजिंग और साइज",
-                code: "सरकारी ड्रग कोड संदर्भ"
+
+                heading:
+                    "जन औषधि दवाएं खोजें",
+
+                subheading:
+                    "नीचे अपनी प्रिस्क्रिप्शन साल्ट कॉम्बिनेशन फॉर्मूला टाइप करें",
+
+                placeholder:
+                    "दवा का नाम लिखें (जैसे, Paracetamol, Amoxycillin)...",
+
+                badge:
+                    "भाषा: हिंदी",
+
+                credit:
+                    "डेवलपर: <strong>आकाशदीप</strong>",
+
+                noMatch:
+                    "❌ कोई जेनेरिक विकल्प नहीं मिला",
+
+                mrp:
+                    "सरकारी केंद्र मूल्य",
+
+                unit:
+                    "पैकेजिंग और साइज",
+
+                code:
+                    "सरकारी ड्रग कोड संदर्भ",
+
+                formula:
+                    "जेनेरिक रासायनिक सूत्र",
+
+                found:
+                    "✨ जेनेरिक विकल्प मिला",
+
+                searching:
+                    "खोज रहा है..."
+
             }
+
         };
 
+
+        // =========================================================
+        // SHOW LANGUAGE MODAL
+        // =========================================================
+
         function showLanguageModal() {
-            document.getElementById("languageModal").style.display = "flex";
+
+            document.getElementById(
+                "languageModal"
+            ).style.display = "flex";
+
         }
+
+
+        // =========================================================
+        // SET LANGUAGE
+        // =========================================================
 
         function setAppLanguage(langCode) {
+
             selectedLanguage = langCode;
-            document.getElementById("languageModal").style.display = "none";
 
-            // Update dashboard string elements using text translations
-            const dict = localizationDictionary[langCode];
-            document.getElementById("uiSearchHeading").innerText = dict.heading;
-            document.getElementById("uiSearchSubheading").innerText = dict.subheading;
-            document.getElementById("dashboardSearchInput").placeholder = dict.placeholder;
-            document.getElementById("activeLangBadge").innerText = dict.badge;
-            document.getElementById("uiFooterCredit").innerHTML = dict.credit;
+            document.getElementById(
+                "languageModal"
+            ).style.display = "none";
 
-            // Clear any old active cards
-            document.getElementById("dashboardResultsWrapper").innerHTML = "";
-            document.getElementById("dashboardSearchInput").value = "";
+            const dict =
+                localizationDictionary[langCode];
+
+            document.getElementById(
+                "uiSearchHeading"
+            ).innerText = dict.heading;
+
+            document.getElementById(
+                "uiSearchSubheading"
+            ).innerText = dict.subheading;
+
+            document.getElementById(
+                "dashboardSearchInput"
+            ).placeholder = dict.placeholder;
+
+            document.getElementById(
+                "activeLangBadge"
+            ).innerText = dict.badge;
+
+            document.getElementById(
+                "uiFooterCredit"
+            ).innerHTML = dict.credit;
+
+            document.getElementById(
+                "dashboardResultsWrapper"
+            ).innerHTML = "";
+
+            document.getElementById(
+                "dropdownSuggestions"
+            ).innerHTML = "";
+
+            document.getElementById(
+                "dropdownSuggestions"
+            ).style.display = "none";
+
+            document.getElementById(
+                "dashboardSearchInput"
+            ).value = "";
+
         }
 
-        // Smart real-time auto-suggest engine
-        async function executeLiveAutoSuggest(rawVal) {
-            const dropdown = document.getElementById("dropdownSuggestions");
-            const term = rawVal.trim().toLowerCase();
 
-            if (term.length < 1) {
-                dropdown.style.display = "none";
-                return;
-            }
+        // =========================================================
+        // SECURITY: ESCAPE HTML
+        // =========================================================
 
-            // Target the Supabase REST schema layer directly for instant partial matches on generic name columns
-            const apiQueryTarget = `${SUPABASE_URL}/rest/v1/bachat_medic_inventory?generic_name=ilike.%25${encodeURIComponent(term)}%25&select=*`;
+        function escapeHtml(value) {
 
-            try {
-                const response = await fetch(apiQueryTarget, {
-                    method: "GET",
-                    headers: {
-                        "apikey": SUPABASE_ANON_KEY,
-                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-                        "Content-Type": "application/json"
-                    }
-                });
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
 
-                const matchingRecords = await response.json();
+        }
 
-                if (response.ok && matchingRecords.length > 0) {
-                    dropdown.innerHTML = "";
 
-                    // Limit the dropdown list to a maximum of 5 rows
-                    matchingRecords.slice(0, 5).forEach(item => {
-                        const row = document.createElement("div");
-                        row.className = "suggest-item";
-                        row.innerHTML = `<span>💊 ${item.generic_name}</span> <span class="suggest-badge">₹ ${parseFloat(item.mrp_in_rs).toFixed(2)}</span>`;
+        // =========================================================
+        // GET FIELD
+        // =========================================================
 
-                        // When clicked, select that row entry to print the output details
-                        row.onclick = () => selectMedicineFromDropdown(item);
-                        dropdown.appendChild(row);
-                    });
+        function getField(item, names, fallback = "") {
 
-                    dropdown.style.display = "block";
-                } else {
-                    dropdown.style.display = "none";
+            for (const name of names) {
+
+                if (
+                    item[name] !== undefined &&
+                    item[name] !== null &&
+                    item[name] !== ""
+                ) {
+
+                    return item[name];
+
                 }
-            } catch (err) {
-                console.error("Fuzzy live indexing pipeline connection failed:", err);
-                dropdown.style.display = "none";
+
             }
+
+            return fallback;
+
         }
 
-        function selectMedicineFromDropdown(item) {
-            document.getElementById("dropdownSuggestions").style.display = "none";
-            document.getElementById("dashboardSearchInput").value = item.generic_name;
 
-            const resultsWrapper = document.getElementById("dashboardResultsWrapper");
-            const langDict = localizationDictionary[selectedLanguage];
+        // =========================================================
+        // FORMAT PRICE
+        // =========================================================
 
-            resultsWrapper.innerHTML = `
-                <div class="data-card">
-                    <div class="data-card-title">✨ Match Found</div>
-                    <div class="data-row">
-                        <span class="data-label">${langDict.code}:</span>
-                        <span class="data-value">#${item.drug_code}</span>
+        function formatPrice(value) {
+
+            const numericValue =
+                Number.parseFloat(value);
+
+            if (Number.isFinite(numericValue)) {
+
+                return numericValue.toFixed(2);
+
+            }
+
+            return "0.00";
+
+        }
+
+
+        // =========================================================
+        // LIVE AUTO SUGGEST
+        // =========================================================
+
+        async function executeLiveAutoSuggest(rawVal) {
+
+            const dropdown =
+                document.getElementById(
+                    "dropdownSuggestions"
+                );
+
+            const term =
+                rawVal.trim();
+
+
+            // Empty search
+            if (term.length < 1) {
+
+                dropdown.innerHTML = "";
+
+                dropdown.style.display = "none";
+
+                return;
+
+            }
+
+
+            // =====================================================
+            // CHECK SUPABASE CONFIGURATION
+            // =====================================================
+
+            if (
+                !SUPABASE_URL ||
+                !SUPABASE_ANON_KEY ||
+                SUPABASE_URL === "https://supabase.co" ||
+                SUPABASE_ANON_KEY ===
+                    "your-anon-public-api-key"
+            ) {
+
+                dropdown.innerHTML = `
+                    <div class="suggest-item">
+                        ⚠️ Please configure your Supabase URL
+                        and anon public key first.
                     </div>
-                    <div class="data-row">
-                        <span class="data-label">Generic Chemical Formula:</span>
-                        <span class="data-value highlight">${item.generic_name}</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">${langDict.unit}:</span>
-                        <span class="data-value">${item.unit_size}</span>
-                    </div>
-                    <div class="data-row total">
-                        <span class="data-label">${langDict.mrp}:</span>
-                        <span class="data-value price-text">₹ ${parseFloat(item.mrp_in_rs).toFixed(2)}</span>
-                    </div>
+                `;
+
+                dropdown.style.display = "block";
+
+                return;
+
+            }
+
+
+            // =====================================================
+            // CREATE SEARCH QUERY
+            // =====================================================
+
+            const encodedTerm =
+                encodeURIComponent(
+                    `%${term}%`
+                );
+
+
+            /*
+                IMPORTANT FIX:
+
+                Your original code had:
+
+                const apiQueryTarget = ${SUPABASE_URL}...
+
+                That is invalid JavaScript.
+
+                It must use backticks:
+
+                `...${SUPABASE_URL}...`
+            */
+
+            const apiQueryTarget =
+                `${SUPABASE_URL}/rest/v1/bachat_medic_inventory` +
+                `?Generic%20Name=ilike.${encodedTerm}` +
+                `&select=*`;
+
+
+            // Show loading
+            dropdown.innerHTML = `
+                <div class="suggest-item">
+                    ${escapeHtml(
+                        localizationDictionary[
+                            selectedLanguage
+                        ].searching
+                    )}
                 </div>
             `;
+
+            dropdown.style.display = "block";
+
+
+            // =====================================================
+            // FETCH FROM SUPABASE
+            // =====================================================
+
+            try {
+
+                const response =
+                    await fetch(
+                        apiQueryTarget,
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "apikey":
+                                    SUPABASE_ANON_KEY,
+
+                                /*
+                                    IMPORTANT FIX:
+
+                                    Your original code had:
+
+                                    "Authorization": Bearer ${SUPABASE_ANON_KEY}
+
+                                    That is invalid.
+
+                                    It must be a template literal.
+                                */
+
+                                "Authorization":
+                                    `Bearer ${SUPABASE_ANON_KEY}`,
+
+                                "Content-Type":
+                                    "application/json"
+
+                            }
+
+                        }
+                    );
+
+
+                const matchingRecords =
+                    await response.json();
+
+
+                // =================================================
+                // API ERROR
+                // =================================================
+
+                if (!response.ok) {
+
+                    console.error(
+                        "Supabase API Error:",
+                        matchingRecords
+                    );
+
+                    dropdown.innerHTML = `
+                        <div class="suggest-item">
+                            ❌ Unable to load medicine data.
+                            Check Supabase URL, table,
+                            column names, RLS and API key.
+                        </div>
+                    `;
+
+                    dropdown.style.display = "block";
+
+                    return;
+
+                }
+
+
+                // =================================================
+                // RESULTS FOUND
+                // =================================================
+
+                if (
+                    Array.isArray(
+                        matchingRecords
+                    ) &&
+                    matchingRecords.length > 0
+                ) {
+
+                    dropdown.innerHTML = "";
+
+
+                    const topSuggestions =
+                        matchingRecords.slice(0, 5);
+
+
+                    topSuggestions.forEach(
+                        item => {
+
+                            const row =
+                                document.createElement(
+                                    "div"
+                                );
+
+                            row.className =
+                                "suggest-item";
+
+
+                            const itemMedName =
+                                getField(
+                                    item,
+                                    [
+                                        "Generic Name",
+                                        "generic_name"
+                                    ],
+                                    "-"
+                                );
+
+
+                            const itemPrice =
+                                getField(
+                                    item,
+                                    [
+                                        "MRP(in Rs.)",
+                                        "mrp_in_rs"
+                                    ],
+                                    0
+                                );
+
+
+                            row.innerHTML = `
+
+                                <span>
+                                    💊
+                                    ${escapeHtml(
+                                        itemMedName
+                                    )}
+                                </span>
+
+                                <span class="suggest-badge">
+                                    ₹
+                                    ${formatPrice(
+                                        itemPrice
+                                    )}
+                                </span>
+
+                            `;
+
+
+                            row.onclick =
+                                () =>
+                                    selectMedicineFromDropdown(
+                                        item
+                                    );
+
+
+                            dropdown.appendChild(
+                                row
+                            );
+
+                        }
+                    );
+
+
+                    dropdown.style.display =
+                        "block";
+
+                }
+
+                // =================================================
+                // NO RESULTS
+                // =================================================
+
+                else {
+
+                    dropdown.innerHTML = `
+
+                        <div class="suggest-item">
+
+                            ${escapeHtml(
+                                localizationDictionary[
+                                    selectedLanguage
+                                ].noMatch
+                            )}
+
+                        </div>
+
+                    `;
+
+                    dropdown.style.display =
+                        "block";
+
+                }
+
+            }
+
+
+            // =====================================================
+            // NETWORK ERROR
+            // =====================================================
+
+            catch (err) {
+
+                console.error(
+                    "API error:",
+                    err
+                );
+
+                dropdown.innerHTML = `
+
+                    <div class="suggest-item">
+
+                        ❌ Network/API error.
+                        Check your Supabase configuration.
+
+                    </div>
+
+                `;
+
+                dropdown.style.display =
+                    "block";
+
+            }
+
         }
 
-        // Automatically dismiss the suggestion dropdown if the user clicks outside the search input
-        document.addEventListener("click", function (e) {
-            if (e.target.id !== "dashboardSearchInput") {
-                document.getElementById("dropdownSuggestions").style.display = "none";
+
+        // =========================================================
+        // SELECT MEDICINE
+        // =========================================================
+
+        function selectMedicineFromDropdown(item) {
+
+            document.getElementById(
+                "dropdownSuggestions"
+            ).style.display = "none";
+
+
+            const currentGenericName =
+                getField(
+                    item,
+                    [
+                        "Generic Name",
+                        "generic_name"
+                    ],
+                    "-"
+                );
+
+
+            const finalPrice =
+                getField(
+                    item,
+                    [
+                        "MRP(in Rs.)",
+                        "mrp_in_rs"
+                    ],
+                    0
+                );
+
+
+            const finalUnit =
+                getField(
+                    item,
+                    [
+                        "Unit Size",
+                        "unit_size"
+                    ],
+                    "N/A"
+                );
+
+
+            const finalCode =
+                getField(
+                    item,
+                    [
+                        "Drug Code",
+                        "drug_code"
+                    ],
+                    "N/A"
+                );
+
+
+            document.getElementById(
+                "dashboardSearchInput"
+            ).value =
+                currentGenericName;
+
+
+            const resultsWrapper =
+                document.getElementById(
+                    "dashboardResultsWrapper"
+                );
+
+
+            const langDict =
+                localizationDictionary[
+                    selectedLanguage
+                ];
+
+
+            // =====================================================
+            // DISPLAY RESULT
+            // =====================================================
+
+            resultsWrapper.innerHTML = `
+
+                <div class="data-card">
+
+                    <div class="data-card-title">
+
+                        ${langDict.found}
+
+                    </div>
+
+
+                    <div class="data-row">
+
+                        <span class="data-label">
+
+                            ${escapeHtml(
+                                langDict.code
+                            )}:
+
+                        </span>
+
+                        <span class="data-value">
+
+                            #${escapeHtml(
+                                finalCode
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-row">
+
+                        <span class="data-label">
+
+                            ${escapeHtml(
+                                langDict.formula
+                            )}:
+
+                        </span>
+
+                        <span
+                            class="data-value"
+                            style="
+                                font-weight:700;
+                                color:#2ecc71;
+                            ">
+
+                            ${escapeHtml(
+                                currentGenericName
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-row">
+
+                        <span class="data-label">
+
+                            ${escapeHtml(
+                                langDict.unit
+                            )}:
+
+                        </span>
+
+                        <span class="data-value">
+
+                            ${escapeHtml(
+                                finalUnit
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="data-row"
+                        style="
+                            margin-top:12px;
+                            padding-top:8px;
+                            border-top:
+                                1px dashed #e2e8f0;
+                        "
+                    >
+
+                        <span
+                            class="data-label"
+                            style="
+                                font-weight:bold;
+                                color:#2d3748;
+                            "
+                        >
+
+                            ${escapeHtml(
+                                langDict.mrp
+                            )}:
+
+                        </span>
+
+
+                        <span
+                            class="data-value price-text"
+                        >
+
+                            ₹
+                            ${formatPrice(
+                                finalPrice
+                            )}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        // =========================================================
+        // CLOSE DROPDOWN WHEN CLICKING OUTSIDE
+        // =========================================================
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+                const input =
+                    document.getElementById(
+                        "dashboardSearchInput"
+                    );
+
+                const dropdown =
+                    document.getElementById(
+                        "dropdownSuggestions"
+                    );
+
+
+                if (
+                    event.target !== input &&
+                    !dropdown.contains(
+                        event.target
+                    )
+                ) {
+
+                    dropdown.style.display =
+                        "none";
+
+                }
+
             }
-        });
+        );
+
+
+        // =========================================================
+        // INITIAL LANGUAGE
+        // =========================================================
+
+        setAppLanguage("en");
+
     </script>
 
 </body>
