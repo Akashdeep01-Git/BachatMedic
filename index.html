@@ -40,7 +40,11 @@
 
 <!-- Master Dashboard Header Area -->
 <div class="navbar">
-    <div class="brand-title" onclick="window.location.reload()">🟢 BachatMedic</div>
+    <div class="brand-title" onclick="window.location.reload()" style="display: flex; align-items: center; gap: 8px;">
+        <img src="icon.png" alt="BachatMedic Logo" style="width: 28px; height: 28px; border-radius: 6px; object-fit: cover;">
+        <span>BachatMedic</span>
+    </div>
+
     <div class="nav-actions">
         <span id="activeLangBadge" class="lang-toggle-badge" onclick="showLanguageModal()">Language: English</span>
     </div>
