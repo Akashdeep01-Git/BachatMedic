@@ -1,0 +1,17 @@
+{
+  "short_name": "BachatMedic",
+  "name": "BachatMedic - Jan Aushadhi Hub",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/BachatMedic/",
+  "background_color": "#f7fafc",
+  "theme_color": "#2ecc71",
+  "display": "standalone",
+  "orientation": "portrait"
+}
